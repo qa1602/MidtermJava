@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Trang chủ</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">Oishi Snack</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Trang chủ</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="#!">About</a></li> -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">Tất cả sản phẩm</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Sản phẩm tiêu biểu</a></li>
+                                <li><a class="dropdown-item" href="#!">Mới có</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Giỏ hàng
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Thiêng đường đồ ăn vặt</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Tuổi thơ gắn liền</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <!-- <section class="py-5">
+            <section class="section-p1" style="margin-top: 32px">
+                <div class="shopping-cart" style="font-family: 'Josefin Sans', sans-serif !important;">
+                  <div class=" column-labels">
+                    <label class="product-removal" th:text="#{pet.html.cart.shopping-cart.handle} "></label>
+                    <label class="product-image" th:text="#{pet.html.cart.shopping-cart.image} "></label>
+                    <label class="product-details" th:text="#{pet.html.cart.shopping-cart.details} "></label>
+                    <label class="product-price" th:text="#{pet.html.cart.shopping-cart.price} "></label>
+                    <label class="product-quantity" th:text="#{pet.html.cart.shopping-cart.quantity} "></label>
+                    <label class="product-line-price" th:text="#{pet.html.cart.shopping-cart.total} "></label>
+                  </div>
+                  <div th:each="transactionDetail : ${transaction.transactionDetailList}" class="product">
+                    <div class="product-removal">
+                      <button style="background-color: transparent !important;" class="remove-product">
+                        <a th:href="@{/cart/removeProduct(id=${transactionDetail.product.id})}">
+                        </a>
+                      </button>
+                    </div>
+                    <div class="product-image">
+                      <a th:href="@{/productDetail(id=${transactionDetail.product.id})}">
+                        <img th:src="*{transactionDetail.product.thumbnail?.get(0)}" />
+                      </a>
+                    </div>
+                    <div class="product-details">
+                      <div th:text="*{transactionDetail.product.name}" class="product-title"></div>
+                      <p th:text="*{transactionDetail.product.description}" class="product-description"></p>
+                    </div>
+            
+                    <div th:text="*{transactionDetail.product.price}" class="product-price"></div>
+                    <div class="product-quantity quantity-number-v2 clearfix">
+                      <div class="quantity-wrapper">
+                        <input class="" disabled id="prodQuantity" type="text" name="quantity" min="1"
+                          th:value="${transactionDetail.amount}" />
+                      </div>
+                      <div id="stock" class="text-center"></div>
+                    </div>
+
+                    <div th:text="${transactionDetail.amount * transactionDetail.product.price}" class="product-line-price"></div>
+                  </div>
+            
+                  <div class="totals">
+                    <div class="totals-item totals-item-total">
+                      <label th:text="#{pet.html.cart.shopping-cart.grandTotal}"></label>
+                      <div th:text="${totalPrice}" class="totals-value" id="cart-total"></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+        </section> -->
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
