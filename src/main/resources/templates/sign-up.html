@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" th:href="@{/img/logo/logo-shop.png}" />
+
+  <title>Sign up</title>
+
+  <link rel="stylesheet" th:href="@{/css/login-style.css}" />
+</head>
+
+<body>
+  <div class="login-container">
+    <form th:action="@{/sign-up}" th:object="${user}" method="post" class="form-login no-border"
+      onsubmit="return validate()">
+      <ul class="login-nav">
+        <li class="login-nav__item">
+          <a th:href="@{/login}" th:text="#{pet.html.sign-up.sign-in}"></a>
+        </li>
+        <li class="login-nav__item active">
+          <a href="#" th:text="#{pet.html.sign-up.signUp}"></a>
+        </li>
+      </ul>
+
+      <label for="login-input-user" class="login__label" th:text="#{pet.html.sign-up.name}"></label>
+      <input class="login__input" type="text" th:field="*{name}" onchange="removeError()" />
+
+      <label for="login-input-user" class="login__label" th:text="#{pet.html.sign-up.email}"></label>
+      <input class="login__input" type="text" th:field="*{email}" onchange="removeError()" />
+
+      <label for="login-input-user" class="login__label" th:text="#{pet.html.sign-up.phone}"></label>
+      <input class="login__input" type="text" th:field="*{phone}" onchange="removeError()" />
+
+      <label for="login-input-user" class="login__label" th:text="#{pet.html.sign-up.address}"></label>
+      <input class="login__input" type="text" th:field="*{address}" onchange="removeError()" />
+
+      <label for="login-input-user" class="login__label" th:text="#{pet.html.sign-up.username}"></label>
+      <input class="login__input" type="text" th:field="*{username}" onchange="removeError()" />
+
+      <label for="login-input-password" class="login__label" th:text="#{pet.html.sign-up.password}"></label>
+      <input id="pwd" class="login__input" type="password" th:field="*{password}" onmouseout="validate_password()"
+        onkeyup="validate_password()" onchange="removeError()" />
+
+      <label for="login-input-password" class="login__label" th:text="#{pet.html.sign-up.confirm}"></label>
+      <input id="cpwd" class="login__input" type="password" onmouseout="validate_password()"
+        onkeyup="validate_password()" onchange="removeError()" />
+
+      <span id="wrong_pass_alert"></span>
+      <span th:if="${param.fail}" class="wrong_alert">Invalid username and password.</span>
+
+      <button id="create" class="login__submit signup__submit" type="submit" th:text="#{pet.html.sign-up.submit}">
+        Sign up
+      </button>
+    </form>
+  </div>
+
+  <script>
+    function removeError() {
+      document.getElementsByClassName('wrong_alert')[0].innerHTML = "";
+    }
+
+    function validate_password() {
+      var pass = document.getElementById('pwd').value;
+      var confirm_pass = document.getElementById('cpwd').value;
+      if (pass != confirm_pass || pass == '') {
+        document.getElementById('wrong_pass_alert').style.color = 'red';
+        document.getElementById('wrong_pass_alert').innerHTML
+          = '☒ Use same password';
+        document.getElementById('create').disabled = true;
+        document.getElementById('create').style.opacity = (0.4);
+      } else {
+        document.getElementById('wrong_pass_alert').style.color = 'green';
+        document.getElementById('wrong_pass_alert').innerHTML =
+          '🗹 Password Matched';
+        document.getElementById('create').disabled = false;
+        document.getElementById('create').style.opacity = (1);
+      }
+    }
+  </script>
+</body>
+
+</html>
