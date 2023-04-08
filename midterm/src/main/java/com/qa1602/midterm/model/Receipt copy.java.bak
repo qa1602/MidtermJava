@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Entity(name = "receipt")
@@ -20,10 +19,8 @@ public class Receipt implements Serializable {
     private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "receipt_products")
-    @MapKeyJoinColumn(name = "receipt_id")
-    @Column(name = "product_id")
-    private Map<Long, Product> listProduct;
+    @CollectionTable(joinColumns = @JoinColumn(name = "receiptid"))
+    private List<Product> listProduct;
 
     private Double total;
 

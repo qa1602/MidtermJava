@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+@Embeddable
 @Data
 @Entity(name = "product")
 public class Product implements Serializable {

@@ -1,7 +1,9 @@
 package com.qa1602.midterm.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,12 +29,14 @@ public class IndexController {
 
     @Autowired
     private CartService cartService;
-   
+
     @Autowired
     private ReceiptService receiptService;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        List<Product> products = productService.getAllProducts();
+        model.addAttribute("products", products);
         return "index";
     }
 
@@ -47,7 +51,7 @@ public class IndexController {
     public String getProductById(@PathVariable("id") Long id, Model model) {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
-        // model.addAttribute("cart", new Cart());
+        model.addAttribute("cart", new Cart());
 
         return "detail";
     }
@@ -55,8 +59,6 @@ public class IndexController {
     @GetMapping("/cart")
     public String getCart(Model model, HttpSession session) {
         Cart cart = (Cart) session.getAttribute("cart");
-        // Cart cart = cartService.getCartInfo();
-        System.out.println("-------------------------------------mlem" + cart.toString());
         model.addAttribute("cart", cart);
         return "cart";
     }
@@ -78,15 +80,34 @@ public class IndexController {
         if (listProduct == null) {
             listProduct = new ArrayList<>();
         }
-        listProduct.add(product);
-        cart.setListProduct(listProduct);
 
         List<Integer> amountP2 = cart.getAmountP();
         if (amountP2 == null) {
             amountP2 = new ArrayList<>();
         }
+        for (int i = 0; i < listProduct.size(); i++) {
+            if (listProduct.get(i).getId() == productId) {
+                amountP2.set(i, amountP2.get(i) + amountP);
+                cart.setListProduct(listProduct);
+                cart.setAmountP(amountP2);
+                cartService.addProduct(cart);
+
+                double sum = 0;
+                for (int j = 0; j < amountP2.size(); j++) {
+                    sum += listProduct.get(j).getPrice() * amountP2.get(j);
+                }
+                cart.setTotal(sum);
+                session.setAttribute("cart", cart);
+                return "redirect:/cart";
+            }
+        }
+
         amountP2.add(amountP);
         cart.setAmountP(amountP2);
+
+        listProduct.add(product);
+        cart.setListProduct(listProduct);
+
         double sum = 0;
         for (int i = 0; i < amountP2.size(); i++) {
             sum += listProduct.get(i).getPrice() * amountP2.get(i);
@@ -108,18 +129,26 @@ public class IndexController {
             @RequestParam String description,
             HttpSession session) {
         Cart cart = (Cart) session.getAttribute("cart");
+        System.out.println("=======================================");
+        System.out.println(cart);
 
         Receipt receipt = new Receipt();
-        receipt.setListProduct(cart.getListProduct());
+        receipt = receiptService.addReceipt(receipt);
+        Map<Long, Product> map = new HashMap<>();
+        for (Product product : cart.getListProduct()) {
+            map.put(receipt.getId(), product);
+        }
+        receipt.setListProduct(map);
         receipt.setTotal(cart.getTotal());
         receipt.setAmountP(cart.getAmountP());
         receipt.setUsername(username);
         receipt.setPhone(phone);
         receipt.setAddress(address);
         receipt.setDescription(description);
-        System.out.println("-------------------------"+receipt.toString());
         receiptService.addReceipt(receipt);
+        cartService.remove(cart);
         session.setAttribute("cart", new Cart());
+        
         return "redirect:/product";
     }
 

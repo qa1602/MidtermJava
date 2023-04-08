@@ -17,5 +17,9 @@ public class CartService {
     public void addProduct(Cart cart) {
         cartRepositiory.save(cart);
     }
-    
+
+    public void remove(Cart cart) {
+        cartRepositiory.delete(cart);
+    }
+
 }

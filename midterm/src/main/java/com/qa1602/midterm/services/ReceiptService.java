@@ -14,7 +14,7 @@ public class ReceiptService {
     @Autowired
     ReceiptRepository receiptRepository;
 
-    public void addReceipt(Receipt receipt) {
-        receiptRepository.save(receipt);
+    public Receipt addReceipt(Receipt receipt) {
+        return receiptRepository.save(receipt);
     }
 }
