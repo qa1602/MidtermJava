@@ -17,10 +17,13 @@ public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "cartid"))
     private List<Product> listProduct;
 
     private Double total;
-
+    
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "cartid"))
     private List<Integer> amountP;
 }

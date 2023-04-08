@@ -18,15 +18,19 @@ public class Receipt implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "receiptid"))
     private List<Product> listProduct;
 
     private Double total;
 
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "receiptid"))
     private List<Integer> amountP;
 
     private String username;
 
-    private int phone;
+    private String phone;
 
     private String address;
 
