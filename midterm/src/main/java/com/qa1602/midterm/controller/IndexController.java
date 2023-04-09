@@ -52,7 +52,6 @@ public class IndexController {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
         model.addAttribute("cart", new Cart());
-
         return "detail";
     }
 
@@ -129,8 +128,6 @@ public class IndexController {
             @RequestParam String description,
             HttpSession session) {
         Cart cart = (Cart) session.getAttribute("cart");
-        System.out.println("=======================================");
-        System.out.println(cart);
 
         Receipt receipt = new Receipt();
         receipt = receiptService.addReceipt(receipt);
@@ -147,9 +144,14 @@ public class IndexController {
         receipt.setDescription(description);
         receiptService.addReceipt(receipt);
         cartService.remove(cart);
+        // hoàn tất thanh toán và xóa item trong cart, tạo cái cart trống mới
         session.setAttribute("cart", new Cart());
-        
+        // chuyển hướng đến trang sản phẩm
         return "redirect:/product";
     }
 
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
 }
